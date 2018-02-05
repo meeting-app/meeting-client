@@ -5,6 +5,7 @@ import Navbar from './components/navigations/Navbar';
 import HomePage from './components/pages/HomePage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
+import ProfilePage from './components/pages/ProfilePage';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
         <Route path='/' exact component={HomePage} />
         <Route path='/login' exact component={LoginPage} />
         <Route path='/signup' exact component={SignupPage} />
+        <Route path='/profile/@:username' exact component={ProfilePage} />
       </div>
     );
   }
