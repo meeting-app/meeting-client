@@ -7,6 +7,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import ProfilePage from './components/pages/ProfilePage';
 import PostPage from './components/pages/PostPage';
+import FeedPage from './components/pages/FeedPage';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path='/login' exact component={LoginPage} />
         <Route path='/signup' exact component={SignupPage} />
         <Route path='/post' exact component={PostPage} />
+        <Route path='/feed' exact component={FeedPage} />
         <Route path='/profile/@:username' exact component={ProfilePage} />
       </div>
     );

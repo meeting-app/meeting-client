@@ -5,7 +5,7 @@ import { Grid, Dimmer, Image, Loader } from 'semantic-ui-react';
 
 class ProfilePage extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     /*
      * TODO: Fetch user
      */
@@ -30,7 +30,7 @@ class ProfilePage extends React.Component {
             />
             <Link to={`/profile/@${user.username}`}>
               <span className='profile-username'>
-                @{user.username}
+                @{user.name}
               </span>
             </Link>
           </Grid.Column>
