@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import SignupForm from '../forms/SignupForm';
+import { signup } from '../../actions/user';
 
-class LoginPage extends React.Component {
+class SignupPage extends React.Component {
 
-  /*
-   * TODO: Implement submit
-   */
-  submit = data => console.log('data submit', data);
+  submit = data =>
+    this.props.signup(data).then(() => {
+      this.props.history.push('/feed');
+    });
 
   render() {
     return (
@@ -22,4 +25,11 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+SignupPage.propTpes = {
+  signup: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
+};
+
+export default connect(null, { signup })(SignupPage);

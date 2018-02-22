@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
-  Header,
   Item,
   Rail,
   Segment,
@@ -51,6 +50,10 @@ class FeedPage extends React.Component {
     );
   }
 }
+
+FeedPage.defaultProps = {
+  feed: []
+};
 
 FeedPage.propTypes = {
 };
