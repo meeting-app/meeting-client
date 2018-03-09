@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   Container,
@@ -12,13 +13,13 @@ const avatar = () => (
   <Image avatar src='/assets/avatar.jpg'/>
 );
 
-const Navbar = ({ isAuthenticated }) => (
+const Navbar = ({ isAuthenticate }) => (
   <Menu inverted color='violet'>
     <Container>
       <Menu.Item as={Link} to='/'>
         <h2>Meeting</h2>
       </Menu.Item>
-      {isAuthenticated &&
+      {isAuthenticate &&
           <Menu.Item position='right'>
             <Dropdown trigger={avatar()}>
               <Dropdown.Menu>
@@ -27,7 +28,7 @@ const Navbar = ({ isAuthenticated }) => (
             </Dropdown>
           </Menu.Item>
       }
-      {!isAuthenticated &&
+      {!isAuthenticate &&
           <Menu.Menu position='right'>
             <Menu.Item
               as={Link}
@@ -45,12 +46,14 @@ const Navbar = ({ isAuthenticated }) => (
   </Menu>
 );
 
-Navbar.defaultProps = {
-  isAuthenticated: false
-};
-
 Navbar.propTypes = {
-  isAuthenticated: PropTypes.bool
+  isAuthenticate: PropTypes.bool
 };
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    isAuthenticate: !!state.user.token
+  };
+}
+
+export default connect(mapStateToProps)(Navbar);

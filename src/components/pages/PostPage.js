@@ -1,13 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
+
+import { create } from '../../actions/post';
 import PostForm from '../forms/PostForm';
 
 class PostPage extends React.Component {
 
-  /*
-   * TODO: Implement submit
-   */
-  submit = data => console.log('data submit', data);
+  submit = data =>
+    this.props.create(data).then(() => {
+      console.log('post successfuly');
+      //this.props.history.push('/feed');
+    });
 
   render() {
     return (
@@ -23,6 +28,10 @@ class PostPage extends React.Component {
 }
 
 PostPage.propTypes = {
+  create: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
-export default PostPage;
+export default connect(null, { create })(PostPage);

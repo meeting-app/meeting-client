@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Feed } from 'semantic-ui-react';
 
+const defaultAvatar = '/assets/avatar.jpg';
+
 const PostFeed = ({ name, username, text, date, avatar }) => (
   <Feed>
     <Feed.Event>
-      <Feed.Label image={avatar} />
+      <Feed.Label image={defaultAvatar} />
       <Feed.Content>
         <Feed.Date>{date}</Feed.Date>
         <Feed.Summary>

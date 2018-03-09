@@ -29,7 +29,7 @@ LoginPage.propTypes = {
   signin: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-}).isRequired
+  }).isRequired
 };
 
 export default connect(null, { signin })(LoginPage);

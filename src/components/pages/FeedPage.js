@@ -1,61 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Grid,
   Item,
-  Rail,
-  Segment,
-  Sticky
+  Segment
 } from 'semantic-ui-react';
 
+import { fetchAll } from '../../actions/post.js';
 import PostFeed from '../feed/PostFeed';
 
 class FeedPage extends React.Component {
 
-  state = {};
-
   componentDidMount() {
-    /*
-     * TODO: Fetch feed
-     */
+    this.props.fetchAll();
   }
 
-  handleContextRef = contextRef => this.setState({ contextRef });
-
   render() {
-    const { contextRef } = this.state;
     const { feed } = this.props;
 
     return (
       <Grid container centered columns={2}>
         <Grid.Column>
-          <div ref={this.handleContextRef}>
-            <Segment>
-              <Item.Group divided>
-                { feed.map((data, i) =>
-                  <Item key={i}>
-                    <PostFeed {...data} />
-                  </Item>
-                )}
-              </Item.Group>
-              <Rail position='left'>
-                <Sticky context={contextRef} offset={50}>
-                  {/* TODO: Add a content */}
-                </Sticky>
-              </Rail>
-            </Segment>
-          </div>
+          <Segment>
+            <Item.Group divided>
+              { feed.map((data, i) =>
+                <Item key={i}>
+                  <PostFeed {...data} />
+                </Item>
+              )}
+            </Item.Group>
+          </Segment>
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-FeedPage.defaultProps = {
-  feed: []
-};
-
 FeedPage.propTypes = {
 };
 
-export default FeedPage;
+function mapStateToProps(state) {
+  return {
+    feed: state.post.feed
+  };
+}
+
+export default connect(mapStateToProps, { fetchAll })(FeedPage);

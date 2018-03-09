@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
 import Navbar from './components/navigations/Navbar';
@@ -9,18 +9,21 @@ import ProfilePage from './components/pages/ProfilePage';
 import PostPage from './components/pages/PostPage';
 import FeedPage from './components/pages/FeedPage';
 
+// UserRoute wrapper
+import UserRoute from './routes/UserRoute';
+
 class App extends Component {
   render() {
     return (
-      <div>
+      <Fragment>
         <Navbar />
         <Route path='/' exact component={HomePage} />
         <Route path='/login' exact component={LoginPage} />
-        <Route path='/signup' exact component={SignupPage} />
-        <Route path='/post' exact component={PostPage} />
-        <Route path='/feed' exact component={FeedPage} />
+        <UserRoute path='/signup' exact component={SignupPage} />
+        <UserRoute path='/post' exact component={PostPage} />
+        <UserRoute path='/feed' exact component={FeedPage} />
         <Route path='/profile/@:username' exact component={ProfilePage} />
-      </div>
+      </Fragment>
     );
   }
 }
