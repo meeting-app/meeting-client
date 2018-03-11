@@ -16,7 +16,6 @@ export const postCreated = data => ({
 
 export const fetchAll = () => dispatch =>
   api.post.fetchAll().then(data => {
-    console.log('fetch all', data);
     dispatch(postsFetched(data));
   });
 

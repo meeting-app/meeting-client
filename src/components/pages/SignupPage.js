@@ -9,7 +9,7 @@ class SignupPage extends React.Component {
 
   submit = data =>
     this.props.signup(data).then(() => {
-      //this.props.history.push('/feed');
+      this.props.history.push('/feed');
     });
 
   render() {

@@ -17,3 +17,8 @@ export const signin = data => dispatch =>
     localStorage.userJWT = user.token;
     dispatch(userLoggedIn(user));
   });
+
+export const fetchCurrent = () => dispatch =>
+  api.user.fetchCurrent().then(user => {
+    dispatch(userLoggedIn(user))
+  });

@@ -5,14 +5,14 @@ import { Feed } from 'semantic-ui-react';
 
 const defaultAvatar = '/assets/avatar.jpg';
 
-const PostFeed = ({ name, username, text, date, avatar }) => (
+const PostFeed = ({ name, username, text, date }) => (
   <Feed>
     <Feed.Event>
       <Feed.Label image={defaultAvatar} />
       <Feed.Content>
         <Feed.Date>{date}</Feed.Date>
         <Feed.Summary>
-          <Link to={`/profile/@${username}`}>{name}</Link> created a post
+          <Link to={`/profile/@${username}`}>{username}</Link> created a post
         </Feed.Summary>
         <Feed.Extra text>
           {text}

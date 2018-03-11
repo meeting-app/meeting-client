@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import {
   Container,
   Dropdown,
   Image,
+  Input,
   Menu
 } from 'semantic-ui-react';
 
@@ -13,11 +14,25 @@ const avatar = () => (
   <Image avatar src='/assets/avatar.jpg'/>
 );
 
+// TODO: Implement logout and search input
 const Navbar = ({ isAuthenticate }) => (
   <Menu inverted color='violet'>
     <Container>
       <Menu.Item as={Link} to='/'>
         <h2>Meeting</h2>
+      </Menu.Item>
+      {isAuthenticate &&
+          <Fragment>
+            <Menu.Item as={Link} to='/feed'>
+              Feed
+            </Menu.Item>
+            <Menu.Item as={Link} to='/post'>
+              Post
+            </Menu.Item>
+          </Fragment>
+      }
+      <Menu.Item position='right'>
+        <Input className='icon' icon='search' placeholder='Search...' />
       </Menu.Item>
       {isAuthenticate &&
           <Menu.Item position='right'>

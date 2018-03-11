@@ -10,8 +10,7 @@ class PostPage extends React.Component {
 
   submit = data =>
     this.props.create(data).then(() => {
-      console.log('post successfuly');
-      //this.props.history.push('/feed');
+      this.props.history.push('/feed');
     });
 
   render() {
