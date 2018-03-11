@@ -4,10 +4,10 @@ import { withRouter } from 'react-router';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const UserRoute = ({ isAuthenticate, component: Component, ...rest }) => (
+const GuestRoute = ({ isAuthenticate, component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props => isAuthenticate ? <Component {...props} /> : <Redirect to='/' />}
+    render={props => !isAuthenticate ? <Component {...props} /> : <Redirect to='/' />}
   />
 );
 
@@ -17,4 +17,5 @@ function mapStateToProps(state) {
   }
 };
 
-export default withRouter(connect(mapStateToProps)(UserRoute));
+export default withRouter(connect(mapStateToProps)(GuestRoute));
+
