@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // Components
 import Navbar from './components/navigations/Navbar';
+import ErrorPage from './components/pages/ErrorPage';
 import HomePage from './components/pages/HomePage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
@@ -30,12 +31,15 @@ class App extends Component {
     return (
       <Fragment>
         <Navbar />
-        <Route path='/' exact component={HomePage} />
-        <GuestRoute path='/login' exact component={LoginPage} />
-        <GuestRoute path='/signup' exact component={SignupPage} />
-        <UserRoute path='/post' exact component={PostPage} />
-        <UserRoute path='/feed' exact component={FeedPage} />
-        <Route path='/profile/@:username' exact component={ProfilePage} />
+        <Switch>
+          <Route path='/' exact component={HomePage} />
+          <GuestRoute path='/login' component={LoginPage} />
+          <GuestRoute path='/signup' component={SignupPage} />
+          <UserRoute path='/post' component={PostPage} />
+          <UserRoute path='/feed' component={FeedPage} />
+          <Route path='/profile/@:username' component={ProfilePage} />
+          <Route component={ErrorPage} />
+        </Switch>
       </Fragment>
     );
   }
