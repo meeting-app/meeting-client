@@ -6,16 +6,17 @@ import {
   Container,
   Dropdown,
   Image,
-  Input,
   Menu
 } from 'semantic-ui-react';
+
+import SearchForm from '../forms/SearchForm';
 
 const avatar = () => (
   <Image avatar src='/assets/avatar.jpg'/>
 );
 
 // TODO: Implement logout and search input
-const Navbar = ({ isAuthenticate }) => (
+const Navbar = ({ isAuthenticate, username }) => (
   <Menu inverted color='violet'>
     <Container>
       <Menu.Item as={Link} to='/'>
@@ -29,10 +30,13 @@ const Navbar = ({ isAuthenticate }) => (
             <Menu.Item as={Link} to='/post'>
               Post
             </Menu.Item>
+            <Menu.Item as={Link} to={`/profile/@${username}`}>
+              Profile
+            </Menu.Item>
           </Fragment>
       }
       <Menu.Item position='right'>
-        <Input className='icon' icon='search' placeholder='Search...' />
+        <SearchForm />
       </Menu.Item>
       {isAuthenticate &&
           <Menu.Item position='right'>
@@ -62,12 +66,14 @@ const Navbar = ({ isAuthenticate }) => (
 );
 
 Navbar.propTypes = {
-  isAuthenticate: PropTypes.bool
+  isAuthenticate: PropTypes.bool,
+  username: PropTypes.string
 };
 
 function mapStateToProps(state) {
   return {
-    isAuthenticate: !!state.user.token
+    isAuthenticate: !!state.user.token,
+    username: state.user.username
   };
 }
 
