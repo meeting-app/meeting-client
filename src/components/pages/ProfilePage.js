@@ -1,7 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Grid, Dimmer, Image, Loader } from 'semantic-ui-react';
+import {
+  Dimmer,
+  Grid,
+  Image,
+  Item,
+  Loader,
+  Segment,
+} from 'semantic-ui-react';
 
+import UserFeed from '../feed/UserFeed';
+
+// API ...
 import api from '../../api';
 
 // TODO: change default avatar
@@ -19,10 +31,17 @@ class ProfilePage extends React.Component {
       .then(user => this.setState({ user }));
   }
 
-  render() {
-    const { user } = this.state;
+  componentDidUpdate(props, nextState) {
+    if (this.props.isAuthenticate && this.state.user && !this.state.posts) {
+      api
+        .user
+        .fetchPostFromUser(this.state.user.username)
+        .then(posts => this.setState({ ...this.state, posts }));
+    }
+  }
 
-    console.log('user', user);
+  render() {
+    const { user, posts } = this.state;
 
     return (
       <Grid container>
@@ -47,9 +66,32 @@ class ProfilePage extends React.Component {
               </Grid.Column>
           }
         </Grid.Row>
+        {posts &&
+            <Grid.Row centered>
+              <Segment>
+                <Item.Group divided>
+                  { posts.map((data, i) =>
+                    <Item key={i}>
+                      <UserFeed {...data} />
+                    </Item>
+                  )}
+                </Item.Group>
+              </Segment>
+            </Grid.Row>
+        }
       </Grid>
     );
   }
 }
 
-export default ProfilePage;
+ProfilePage.propTypes = {
+  isAuthenticate: PropTypes.bool
+};
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticate: !!state.user.token
+  };
+}
+
+export default connect(mapStateToProps)(ProfilePage);
