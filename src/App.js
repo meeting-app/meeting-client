@@ -11,6 +11,7 @@ import SignupPage from './components/pages/SignupPage';
 import ProfilePage from './components/pages/ProfilePage';
 import PostPage from './components/pages/PostPage';
 import FeedPage from './components/pages/FeedPage';
+import LogoutPage from './components/pages/LogoutPage';
 
 // User actions
 import { fetchCurrent } from './actions/user';
@@ -37,6 +38,7 @@ class App extends Component {
           <GuestRoute path='/signup' component={SignupPage} />
           <UserRoute path='/post' component={PostPage} />
           <UserRoute path='/feed' component={FeedPage} />
+          <UserRoute path='/logout' component={LogoutPage} />
           <Route path='/profile/@:username' component={ProfilePage} />
           <Route component={ErrorPage} />
         </Switch>

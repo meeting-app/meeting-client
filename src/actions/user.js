@@ -1,9 +1,16 @@
 import api from '../api';
-import { USER_LOGGED_IN } from '../constantes/types';
+import {
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT,
+} from '../constantes/types';
 
 export const userLoggedIn = data => ({
   type: USER_LOGGED_IN,
   data
+});
+
+export const userLoggedOut = () => ({
+  type: USER_LOGGED_OUT
 });
 
 export const signup = data => dispatch =>
@@ -22,3 +29,8 @@ export const fetchCurrent = () => dispatch =>
   api.user.fetchCurrent().then(user => {
     dispatch(userLoggedIn(user))
   });
+
+export const logout = () => dispatch => {
+  localStorage.removeItem('userJWT');
+  dispatch(userLoggedOut());
+};

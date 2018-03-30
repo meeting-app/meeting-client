@@ -15,7 +15,7 @@ const avatar = () => (
   <Image avatar src='/assets/avatar.jpg'/>
 );
 
-// TODO: Implement logout and search input
+// TODO: Implement search input
 const Navbar = ({ isAuthenticate, username }) => (
   <Menu inverted color='violet'>
     <Container>
@@ -42,7 +42,12 @@ const Navbar = ({ isAuthenticate, username }) => (
           <Menu.Item position='right'>
             <Dropdown trigger={avatar()}>
               <Dropdown.Menu>
-                <Dropdown.Item>Logout</Dropdown.Item>
+                <Dropdown.Item
+                  as={Link}
+                  to='/logout'
+                >
+                  Logout
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
