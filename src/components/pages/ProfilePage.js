@@ -8,7 +8,6 @@ import {
   Image,
   Item,
   Loader,
-  Segment,
 } from 'semantic-ui-react';
 
 import UserFeed from '../feed/UserFeed';
@@ -21,18 +20,34 @@ const defaultAvatar = '/assets/avatar.jpg';
 
 class ProfilePage extends React.Component {
 
-  state = {};
+  state = {
+    user: {},
+    posts: []
+  };
 
   componentDidMount() {
-    // TODO: use redux?
     api
       .user
       .fetchUser(this.props.match.params.username)
       .then(user => this.setState({ user }));
   }
 
+  componentWillReceiveProps(props) {
+    const { username } = props.match.params;
+    if (username && username !== this.state.user.username) {
+      const { user } = props;
+      this.setState({
+        user: {
+          name: user.username,
+          username: user.username
+        },
+        posts: []
+      });
+    }
+  }
+
   componentDidUpdate(props, nextState) {
-    if (this.props.isAuthenticate && this.state.user && !this.state.posts) {
+    if (this.props.isAuthenticate && this.state.posts.length === 0) {
       api
         .user
         .fetchPostFromUser(this.state.user.username)
@@ -68,7 +83,7 @@ class ProfilePage extends React.Component {
         </Grid.Row>
         {posts &&
             <Grid.Row centered>
-              <Segment>
+              <Grid.Column width={8}>
                 <Item.Group divided>
                   { posts.map((data, i) =>
                     <Item key={i}>
@@ -76,7 +91,7 @@ class ProfilePage extends React.Component {
                     </Item>
                   )}
                 </Item.Group>
-              </Segment>
+              </Grid.Column>
             </Grid.Row>
         }
       </Grid>
@@ -90,7 +105,8 @@ ProfilePage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticate: !!state.user.token
+    isAuthenticate: !!state.user.token,
+    user: state.user,
   };
 }
 
