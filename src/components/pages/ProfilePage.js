@@ -29,7 +29,8 @@ class ProfilePage extends React.Component {
     api
       .user
       .fetchUser(this.props.match.params.username)
-      .then(user => this.setState({ user }));
+      .then(user => this.setState({ user }))
+      .catch(error => this.setState({ error }));
   }
 
   componentWillReceiveProps(props) {
@@ -56,29 +57,41 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    const { user, posts } = this.state;
+    const { user, posts, error } = this.state;
+
+    if (error) {
+      console.log(error);
+      return (
+        <Grid container>
+          <Grid.Row centered>
+            <h2>Profile not found</h2>
+          </Grid.Row>
+        </Grid>
+      );
+    }
 
     return (
       <Grid container>
         <Grid.Row centered className='profile-header'>
-          <Dimmer active={!user}>
+          <Dimmer active={Object.keys(user).length === 0}>
             <Loader size='medium'>Loading</Loader>
           </Dimmer>
-          {user &&
-              <Grid.Column width={3} textAlign='center'>
-                <Image
-                  avatar
-                  circular
-                  size='medium'
-                  className='profile-image'
-                  src={defaultAvatar}
-                />
-                <Link to={`/profile/@${user.username}`}>
-                  <span className='profile-username'>
-                    @{user.name}
-                  </span>
-                </Link>
-              </Grid.Column>
+          {user && (
+            <Grid.Column width={3} textAlign='center'>
+              <Image
+                avatar
+                circular
+                size='medium'
+                className='profile-image'
+                src={defaultAvatar}
+              />
+              <Link to={`/profile/@${user.username}`}>
+                <span className='profile-username'>
+                  @{user.name}
+                </span>
+              </Link>
+            </Grid.Column>
+          )
           }
         </Grid.Row>
         {posts &&
