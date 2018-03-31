@@ -8,10 +8,12 @@ const getHeaders = () => {
 };
 
 export default {
+  me: {
+    fetch: () => axios.get('/api/v1/me', getHeaders()).then(res => res.data),
+  },
   user: {
     signin: data => axios.post('/api/v1/auth', data).then(res => res.data),
     signup: user => axios.post('/api/v1/users', user).then(res => res.data),
-    fetchCurrent: () => axios.get('/api/v1/users', getHeaders()).then(res => res.data),
     fetchUser: user => axios.get(`/api/v1/users/${user}`).then(res => res.data),
     fetchPostFromUser: user => axios.get(`/api/v1/users/${user}/posts`).then(res => res.data)
   },

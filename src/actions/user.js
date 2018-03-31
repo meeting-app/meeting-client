@@ -26,7 +26,7 @@ export const signin = data => dispatch =>
   });
 
 export const fetchCurrent = () => dispatch =>
-  api.user.fetchCurrent().then(user => {
+  api.me.fetch().then(user => {
     dispatch(userLoggedIn(user))
   });
 
